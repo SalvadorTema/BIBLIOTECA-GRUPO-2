@@ -12,7 +12,7 @@ public abstract class AbstractMaterial {
     }
 
     public abstract int getMaxLoanDays();
-
+ 
     public String getId() { return id; }
     public String getTitle() { return title; }
     public boolean isAvailable() { return isAvailable; }
