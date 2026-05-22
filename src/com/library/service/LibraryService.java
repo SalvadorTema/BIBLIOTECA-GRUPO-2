@@ -3,7 +3,7 @@ package com.library.service;
 
 import com.library.model.AbstractMaterial;
 import com.library.model.User;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class LibraryService {
@@ -12,8 +12,10 @@ public class LibraryService {
     private List<User> users;
 
     public LibraryService() {
-        this.inventory = new ArrayList<>();
-        this.users = new ArrayList<>();
+    	
+            this.inventory = com.library.model.FilePersistence.loadMaterials();
+            this.users = com.library.model.FilePersistence.loadUsers();
+        
     }
 
     //Registros
@@ -104,5 +106,9 @@ public class LibraryService {
             int days = material.getMaxLoanDays(); 
             System.out.println("Material ID: " + material.getId() + " | Title: " + material.getTitle() + " | Max Loan: " + days + " days.");
         }
+    }
+    public void saveAllData() {
+        com.library.model.FilePersistence.saveMaterials(this.inventory);
+        com.library.model.FilePersistence.saveUsers(this.users);
     }
 }
