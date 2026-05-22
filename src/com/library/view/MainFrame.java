@@ -5,16 +5,27 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import com.library.service.LibraryService;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import com.library.model.Book;
 
 public class MainFrame extends JFrame {
-    
+	private static final long serialVersionUID = 1L;
+	
     private LibraryService service;
-
+    private JTextField txtId;
+    private JTextField txtTitle;
+    private JTextField txtAuthor;
+    private JButton btnSave;
+    
     public MainFrame() {
+    	
         // Inicializar el servicio Carga automáticamente los CSV
         this.service = new LibraryService();
         
-        // Configuración básica de la ventana principal
+        // Ventana principal
         setTitle("Sistema de Gestión de Biblioteca");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -26,5 +37,59 @@ public class MainFrame extends JFrame {
         lblTitle.setFont(new Font("Arial", Font.BOLD, 22));
         lblTitle.setBounds(100, 30, 600, 40);
         add(lblTitle);
-    }
+    
+ // 1. Formulario: ID del Libro
+    JLabel lblId = new JLabel("ID del Libro:");
+    lblId.setBounds(50, 100, 100, 30);
+    add(lblId);
+    
+    txtId = new JTextField();
+    txtId.setBounds(160, 100, 150, 30);
+    add(txtId);
+    
+    // 2. Formulario: Título del Libro
+    JLabel lblTitleBook = new JLabel("Título:");
+    lblTitleBook.setBounds(50, 150, 100, 30);
+    add(lblTitleBook);
+    
+    txtTitle = new JTextField();
+    txtTitle.setBounds(160, 150, 250, 30);
+    add(txtTitle);
+    
+    // 3. Formulario: Autor del Libro
+    JLabel lblAuthorBook = new JLabel("Autor:");
+    lblAuthorBook.setBounds(50, 200, 100, 30);
+    add(lblAuthorBook);
+    
+    txtAuthor = new JTextField();
+    txtAuthor.setBounds(160, 200, 250, 30);
+    add(txtAuthor);
+    
+    // 4. Botón para Guardar
+    btnSave = new JButton("Guardar Libro");
+    btnSave.setBounds(160, 260, 150, 40);
+    add(btnSave);
+    
+    // 5. Acción del Botón Guardar en el CSV
+    
+    btnSave.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String id = txtId.getText();
+            String title = txtTitle.getText();
+            String author = txtAuthor.getText();
+            
+            Book nuevoLibro = new Book(id, title, author);
+            
+            service.addMaterial(nuevoLibro);
+            service.saveAllData();
+            
+            System.out.println("¡Libro guardado con éxito!: " + title);
+            
+            txtId.setText("");
+            txtTitle.setText("");
+            txtAuthor.setText("");
+        }
+    });
+     }
 }
