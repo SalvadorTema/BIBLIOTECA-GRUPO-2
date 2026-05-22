@@ -10,7 +10,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import com.library.model.Book;
-
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
@@ -19,6 +21,8 @@ public class MainFrame extends JFrame {
     private JTextField txtTitle;
     private JTextField txtAuthor;
     private JButton btnSave;
+    private JTable table;
+    private DefaultTableModel tableModel;
     
     public MainFrame() {
     	
