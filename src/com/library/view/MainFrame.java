@@ -78,6 +78,7 @@ public class MainFrame extends JFrame {
     
     btnSave.addActionListener(new ActionListener() {
         @Override
+        
         public void actionPerformed(ActionEvent e) {
             String id = txtId.getText();
             String title = txtTitle.getText();
@@ -89,11 +90,41 @@ public class MainFrame extends JFrame {
             service.saveAllData();
             
             System.out.println("¡Libro guardado con éxito!: " + title);
-            
+            tableModel.addRow(new Object[]{id, title, author});
             txtId.setText("");
             txtTitle.setText("");
             txtAuthor.setText("");
         }
     });
+    
+ // CONFIGURACIÓN DE LA TABLA LADO DERECHO
+    
+    // 1. Definimos  los nombres de las columnas
+    String[] columnNames = {"ID", "Título", "Autor"};
+    
+    // 2. Creamos  el modelo de datos empezando con 0 filas
+    tableModel = new DefaultTableModel(columnNames, 0);
+    table = new JTable(tableModel);
+    
+    // 3. sele coloca a la tabla en un panel con barras de desplazamiento Scroll
+    JScrollPane scrollPane = new JScrollPane(table);
+    // Posición a la derecha: X=450, Y=100, Ancho=300, Alto=400
+    scrollPane.setBounds(450, 100, 300, 400);
+    add(scrollPane);
+    
+ // 4. Carga los materiales que ya existan en el CSV al abrir la ventana
+    for (com.library.model.AbstractMaterial mat : service.getInventory()) {
+        String autor = "";
+        
+        // Si el material es un Libro Book, recuperamos su autor
+        if (mat instanceof com.library.model.Book) {
+            autor = ((com.library.model.Book) mat).getAuthor();
+        } else if (mat instanceof com.library.model.Magazine) {
+            autor = "Revista";
+        }
+        
+        // Agregamos la fila usando los métodos de la clase abstracta
+        tableModel.addRow(new Object[]{mat.getId(), mat.getTitle(), autor});
+    }
      }
 }
