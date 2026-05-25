@@ -27,12 +27,12 @@ public class Main {
                 
                 switch (opcion) {
                     case 1:
-                        System.out.println("\n[Módulo de Libros en construcción...]");
+                        System.out.println("\n[Módulo de Libros]");
                         gestionarLibros(teclado, processResult);
                         break;
                     case 2:
-                        System.out.println("\n[Módulo de Usuarios en construcción...]");
-                        gestionarLibros(teclado, processResult);
+                        System.out.println("\n[Módulo de Usuarios]");
+                        gestionarUsuarios(teclado, processResult);
                         break;
                     case 3:
                         System.out.println("\n[Módulo de Préstamos en construcción...]");
@@ -116,6 +116,64 @@ public class Main {
                     case 3:
                         String listaLibros = processResult.getAllBooks();
                         System.out.println(listaLibros);
+                        break;
+                        
+                    case 4:
+                        System.out.println("\nRegresando al menú principal...");
+                        break;
+                        
+                    default:
+                        System.out.println("\n❌ Opción no válida en este submódulo.");
+                }
+            } catch (Exception e) {
+                System.out.println("\n❌ Error: Por favor, ingrese un número válido.");
+                teclado.nextLine(); // Limpiar búfer
+                subOpcion = 0;
+            }
+        } while (subOpcion != 4);
+    }
+    //Metodo auxiliar Case2
+    private static void gestionarUsuarios(Scanner teclado, LibraryService processResult) {
+        int subOpcion = 0;
+        do {
+            System.out.println("\n=======================================");
+            System.out.println("         MODULO DE USUARIOS            ");
+            System.out.println("=======================================");
+            System.out.println("1. Registrar nuevo usuario (Estudiante)");
+            System.out.println("2. Buscar usuario por Carné");
+            System.out.println("3. Mostrar todos los usuarios");
+            System.out.println("4. Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
+            
+            try {
+                subOpcion = teclado.nextInt();
+                teclado.nextLine(); // Limpiar el búfer del scanner
+                
+                switch (subOpcion) {
+                    case 1:
+                        System.out.println("\n--- REGISTRAR NUEVO USUARIO ---");
+                        System.out.print("Ingrese el carné del estudiante: ");
+                        String carnet = teclado.nextLine();
+                        
+                        System.out.print("Ingrese el nombre completo: ");
+                        String nombre = teclado.nextLine();
+                        
+                        String resultadoAgregar = processResult.registerNewUser(carnet, nombre);
+                        System.out.println("\n👉 " + resultadoAgregar);
+                        break;
+                        
+                    case 2:
+                        System.out.println("\n--- BUSCAR USUARIO ---");
+                        System.out.print("Ingrese el carné a buscar: ");
+                        String carnetBuscar = teclado.nextLine();
+                        
+                        String reporteUsuario = processResult.getUserReport(carnetBuscar);
+                        System.out.println(reporteUsuario);
+                        break;
+                        
+                    case 3:
+                        String listaUsuarios = processResult.getAllUsers();
+                        System.out.println(listaUsuarios);
                         break;
                         
                     case 4:

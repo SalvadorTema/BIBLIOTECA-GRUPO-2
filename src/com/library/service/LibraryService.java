@@ -219,4 +219,86 @@ public class LibraryService {
 
         return "\n=== INVENTARIO DE LIBROS TOTALES (" + contador + ") ===\n" + lista.toString();
     }
+//  MÉTODOS PARA EL CASO 2: USUARIOS
+    /**
+     * Registra un nuevo usuario en el sistema.
+     * Valida que el carné no esté duplicado antes de guardarlo.
+     */
+    public String registerNewUser(String carnet, String name) {
+        if (carnet == null || carnet.trim().isEmpty()) {
+            return "Error: El carné no puede estar vacío.";
+        }
+        if (name == null || name.trim().isEmpty()) {
+            return "Error: El nombre no puede estar vacío.";
+        }
+
+        // Validar si el usuario ya existe para evitar duplicados
+        if (findUserByCarnet(carnet) != null) {
+            return "Error: Ya existe un usuario registrado con el carné " + carnet + ".";
+        }
+
+        // Crear la instancia de User
+        User nuevoUsuario = new User(carnet, name);
+        
+        // Agregar a la lista usando tu método existente
+        addUser(nuevoUsuario);
+        
+        // Persistir los datos en el archivo
+        saveAllData();
+        
+        return "Usuario '" + name + "' registrado exitosamente con carné: " + carnet;
+    }
+
+    /**
+     * Busca un usuario por carné y devuelve su información detallada,
+     * incluyendo la cantidad de libros que tiene prestados actualmente.
+     */
+    public String getUserReport(String carnet) {
+        User user = findUserByCarnet(carnet);
+        
+        if (user == null) {
+            return "No se encontró ningún usuario con el carné: '" + carnet + "'";
+        }
+
+        StringBuilder reporte = new StringBuilder();
+        reporte.append("\n👤 IDENTIFICACIÓN DE USUARIO 👤")
+               .append("\n   Nombre: ").append(user.getName())
+               .append("\n   Carné: ").append(user.getCarnet())
+               .append("\n   Préstamos Activos: ").append(user.getActiveLoans().size()).append(" / 3");
+
+        if (!user.getActiveLoans().isEmpty()) {
+            reporte.append("\n   Libros en posesión:");
+            for (AbstractMaterial material : user.getActiveLoans()) {
+                reporte.append("\n     👉 [").append(material.getId()).append("] ").append(material.getTitle());
+            }
+        } else {
+            reporte.append("\n   🟢 Sin préstamos pendientes.");
+        }
+        reporte.append("\n");
+
+        return reporte.toString();
+    }
+
+    /**
+     * Devuelve la lista completa de usuarios registrados.
+     */
+    public String getAllUsers() {
+        StringBuilder lista = new StringBuilder();
+        int contador = 0;
+
+        for (User user : users) {
+            contador++;
+            lista.append("• Carné: ").append(user.getCarnet())
+                 .append(" | Nombre: ").append(user.getName())
+                 .append(" | Préstamos: ").append(user.getActiveLoans().size()).append("\n");
+        }
+
+        if (contador == 0) {
+            return "No hay usuarios registrados en el sistema.";
+        }
+
+        return "\n=== PADRÓN DE USUARIOS REGISTRADOS (" + contador + ") ===\n" + lista.toString();
+    }
+    
+    
 }
