@@ -1,5 +1,7 @@
 package com.library.model;
 
+import java.util.Objects;
+
 public abstract class AbstractMaterial {
     private String id;
     private String title;
@@ -21,5 +23,20 @@ public abstract class AbstractMaterial {
     @Override
     public String toString() {
         return "[" + id + "] " + title + " (Available: " + isAvailable + ")";
+    }
+    
+ // NUEVO: Permite que .contains() y .remove() encuentren el material por su ID
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbstractMaterial that = (AbstractMaterial) o;
+        return Objects.equals(id, that.id);
+    }
+
+    // NUEVO: Buena práctica obligatoria al implementar equals
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
