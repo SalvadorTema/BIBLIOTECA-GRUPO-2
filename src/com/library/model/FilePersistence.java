@@ -16,22 +16,28 @@ public class FilePersistence {
     private static final String DELIMITER = ";";
 
    
-    // PERSISTENCIA DE MATERIALES LIBROS Y REVISTAS
+// PERSISTENCIA DE MATERIALES LIBROS Y REVISTAS (CON ASIGNACIÓN DE PRÉSTAMOS)
     
-    public static void saveMaterials(List<AbstractMaterial> inventory) {
+    public static void saveMaterials(List<AbstractMaterial> inventory, List<User> users) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(MATERIALS_FILE))) {
-            
-        	// Encabezado del archivo CSV para mantener el orden
-        	
-            writer.println("Type" + DELIMITER + "ID" + DELIMITER + "Title" + DELIMITER + "ExtraField" + DELIMITER + "Available");
+            writer.println("Type" + DELIMITER + "ID" + DELIMITER + "Title" + DELIMITER + "ExtraField" + DELIMITER + "BorrowedByCarnet");
             
             for (AbstractMaterial mat : inventory) {
+                // Buscamos si algún usuario tiene este material en su lista de préstamos activos
+                String carnetDueno = "NONE";
+                for (User u : users) {
+                    if (u.getActiveLoans().contains(mat)) {
+                        carnetDueno = u.getCarnet();
+                        break;
+                    }
+                }
+                
                 if (mat instanceof Book) {
                     Book b = (Book) mat;
-                    writer.println("B" + DELIMITER + b.getId() + DELIMITER + b.getTitle() + DELIMITER + b.getAuthor() + DELIMITER + b.isAvailable());
+                    writer.println("B" + DELIMITER + b.getId() + DELIMITER + b.getTitle() + DELIMITER + b.getAuthor() + DELIMITER + carnetDueno);
                 } else if (mat instanceof Magazine) {
                     Magazine m = (Magazine) mat;
-                    writer.println("M" + DELIMITER + m.getId() + DELIMITER + m.getTitle() + DELIMITER + m.getIssueNumber() + DELIMITER + m.isAvailable());
+                    writer.println("M" + DELIMITER + m.getId() + DELIMITER + m.getTitle() + DELIMITER + m.getIssueNumber() + DELIMITER + carnetDueno);
                 }
             }
         } catch (IOException e) {

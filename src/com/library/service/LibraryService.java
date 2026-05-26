@@ -3,8 +3,13 @@ package com.library.service;
 
 import com.library.model.AbstractMaterial;
 import com.library.model.Book;
+import com.library.model.Magazine;
 import com.library.model.User;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LibraryService {
@@ -14,8 +19,51 @@ public class LibraryService {
 
     public LibraryService() {
     	
-            this.inventory = com.library.model.FilePersistence.loadMaterials();
-            this.users = com.library.model.FilePersistence.loadUsers();
+    	// 1. Cargar primero las listas base desde los archivos
+        this.users = com.library.model.FilePersistence.loadUsers();
+        
+        // Necesitamos leer temporalmente el archivo de materiales
+        this.inventory = new ArrayList<>();
+        File file = new File("materials.csv");
+        if (file.exists()) {
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                br.readLine(); // Saltar encabezado
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String[] data = line.split(";");
+                    if (data.length < 5) continue;
+
+                    String type = data[0];
+                    String id = data[1];
+                    String title = data[2];
+                    String extra = data[3];
+                    String carnetDueno = data[4];
+
+                    AbstractMaterial material = null;
+                    if (type.equals("B")) {
+                        material = new Book(id, title, extra);
+                    } else if (type.equals("M")) {
+                        material = new Magazine(id, title, Integer.parseInt(extra));
+                    }
+
+                    if (material != null) {
+                        // Si el carnet es diferente de "NONE", reconstruimos la relación bidireccional
+                        if (!carnetDueno.equalsIgnoreCase("NONE")) {
+                            material.setAvailable(false);
+                            User usuarioDueno = findUserByCarnet(carnetDueno);
+                            if (usuarioDueno != null) {
+                                usuarioDueno.addLoan(material); // Se añade a los préstamos activos del alumno
+                            }
+                        } else {
+                            material.setAvailable(true);
+                        }
+                        this.inventory.add(material);
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println("Error vinculando persistencia: " + e.getMessage());
+            }
+        }
         
     }
 
@@ -110,7 +158,8 @@ public class LibraryService {
     }
     
     public void saveAllData() {
-        com.library.model.FilePersistence.saveMaterials(this.inventory);
+    	// Le pasamos ambos inventarios para que cruce la información de los préstamos
+        com.library.model.FilePersistence.saveMaterials(this.inventory, this.users);
         com.library.model.FilePersistence.saveUsers(this.users);
     }
     public String returnMaterial(String carnet, String id) {
