@@ -20,4 +20,10 @@ public class Book extends AbstractMaterial {
 
     public String getAuthor() { return author; }
     public void setAuthor(String author) { this.author = author; }
+
+	@Override
+	public int getLoanDurationInDays() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

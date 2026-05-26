@@ -21,7 +21,8 @@ public class Main {
             System.out.println("2. Gestionar Usuarios");
             System.out.println("3. Realizar Préstamo");
             System.out.println("4. Devolver Libro");
-            System.out.println("5. Salir");
+            System.out.println("5. Reporte de Reglas de Préstamo");
+            System.out.println("6. Salir");
             System.out.print("Seleccione una opción: ");
             
             try {
@@ -74,7 +75,12 @@ public class Main {
                         // 3. Imprimir el resultado de la operación
                         System.out.println("\n👉 " + resultadoDevolucion);
                         break;
-                    case 5:
+                    case 5: // 🟢 NUEVO CASO 5
+                        System.out.println("\nGenerando reporte...");
+                        String reporteReglas = processResult.getLoanRulesReport();
+                        System.out.println(reporteReglas);
+                        break;
+                    case 6: 
                         System.out.println("\n¡Gracias por usar el sistema! Saliendo...");
                         break;
                     default:
@@ -86,7 +92,7 @@ public class Main {
                 opcion = 0;
             }
             
-        } while (opcion != 5);
+        } while (opcion != 6);
 
         teclado.close();
         }

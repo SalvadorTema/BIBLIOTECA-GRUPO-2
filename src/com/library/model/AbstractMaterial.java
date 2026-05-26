@@ -39,4 +39,6 @@ public abstract class AbstractMaterial {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+	public abstract int getLoanDurationInDays();
 }

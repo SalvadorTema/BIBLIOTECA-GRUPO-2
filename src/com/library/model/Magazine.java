@@ -15,4 +15,10 @@ public class Magazine extends AbstractMaterial {
 
     public int getIssueNumber() { return issueNumber; }
     public void setIssueNumber(int issueNumber) { this.issueNumber = issueNumber; }
+
+	@Override
+	public int getLoanDurationInDays() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

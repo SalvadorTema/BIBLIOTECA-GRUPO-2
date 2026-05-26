@@ -379,6 +379,39 @@ public class LibraryService {
 
         return "\n=== PADRÓN DE USUARIOS REGISTRADOS (" + contador + ") ===\n" + lista.toString();
     }
-    
+ // =================================================================
+    // 📊 MÓDULO DE REPORTES (CASO 5)
+    // =================================================================
+
+    /**
+     * Genera un reporte polimórfico aplicando las reglas de préstamo 
+     * definidas en las clases hijas de AbstractMaterial.
+     */
+    public String getLoanRulesReport() {
+        if (inventory.isEmpty()) {
+            return "No hay materiales registrados en el inventario para generar el reporte.";
+        }
+
+        StringBuilder reporte = new StringBuilder();
+        reporte.append("\n===============================================================\n");
+        reporte.append("        REPORTE POLIMÓRFICO: REGLAS DE PRÉSTAMO VIGENTES       \n");
+        reporte.append("===============================================================\n");
+        reporte.append(String.format("%-6s | %-25s | %-12s | %-10s\n", "ID", "TÍTULO", "TIPO", "MÁX. DÍAS"));
+        reporte.append("---------------------------------------------------------------\n");
+
+        for (AbstractMaterial mat : inventory) {
+            String tipo = (mat instanceof Book) ? "Libro" : "Revista";
+            
+            // Aquí ocurre la magia del polimorfismo: mat.getLoanDurationInDays() 
+            // llamará al método específico de Book o de Magazine automáticamente.
+            int diasMaximos = mat.getLoanDurationInDays(); 
+
+            reporte.append(String.format("%-6s | %-25.25s | %-12s | %-10d días\n", 
+                    mat.getId(), mat.getTitle(), tipo, diasMaximos));
+        }
+        reporte.append("===============================================================\n");
+        
+        return reporte.toString();
+    }
     
 }
