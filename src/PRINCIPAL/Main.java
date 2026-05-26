@@ -1,6 +1,9 @@
 package PRINCIPAL;
 
+import java.util.List;
 import java.util.Scanner;
+
+import com.library.model.Magazine;
 import com.library.service.LibraryService;
 
 public class Main {
@@ -14,7 +17,7 @@ public class Main {
             System.out.println("\n=======================================");
             System.out.println("   SISTEMA DE BIBLIOTECA - GRUPO 2     ");
             System.out.println("=======================================");
-            System.out.println("1. Gestionar Libros");
+            System.out.println("1. Gestionar Inventario");
             System.out.println("2. Gestionar Usuarios");
             System.out.println("3. Realizar Préstamo");
             System.out.println("4. Devolver Libro");
@@ -27,8 +30,8 @@ public class Main {
                 
                 switch (opcion) {
                     case 1:
-                        System.out.println("\n[Módulo de Libros]");
-                        gestionarLibros(teclado, processResult);
+                    	gestionarInventario(teclado, processResult);
+                       
                         break;
                     case 2:
                         System.out.println("\n[Módulo de Usuarios]");
@@ -52,10 +55,6 @@ public class Main {
                         
                         // 3. Mostrar el reporte del estado del proceso
                         System.out.println("\n👉 " + resultadoPrestamo); 
-                        
-                        
-                        
-                        
                         break;
                     case 4:
                     	System.out.println("\n=======================================");
@@ -90,70 +89,83 @@ public class Main {
         } while (opcion != 5);
 
         teclado.close();
-    }
-    
-    //Metodo auxiliar Case1
-    
-    private static void gestionarLibros(Scanner teclado, LibraryService processResult) {
-        int subOpcion = 0;
-        do {
-            System.out.println("\n=======================================");
-            System.out.println("          MODULO DE LIBROS             ");
-            System.out.println("=======================================");
-            System.out.println("1. Registrar nuevo libro");
-            System.out.println("2. Buscar libro (ID o Título)");
-            System.out.println("3. Mostrar todos los libros");
-            System.out.println("4. Volver al menú principal");
-            System.out.print("Seleccione una opción: ");
-            
-            try {
-                subOpcion = teclado.nextInt();
-                teclado.nextLine(); // Limpiar el búfer del scanner
+        }
+        
+        /**
+         * Submenú para administrar tanto Libros como Revistas de forma independiente.
+         */
+        private static void gestionarInventario(Scanner teclado, LibraryService processResult) {
+            int opcionInventario = 0;
+            do {
+                System.out.println("\n=======================================");
+                System.out.println("       GESTIÓN DE INVENTARIO           ");
+                System.out.println("=======================================");
+                System.out.println("1. Registrar un Libro");
+                System.out.println("2. Registrar una Revista");
+                System.out.println("3. Listar todos los Libros");
+                System.out.println("4. Listar todas las Revistas");
+                System.out.println("5. Volver al Menú Principal");
+                System.out.print("Seleccione una opción: ");
                 
-                switch (subOpcion) {
+                try {
+                    opcionInventario = Integer.parseInt(teclado.nextLine());
+                } catch (NumberFormatException e) {
+                    opcionInventario = 0;
+                }
+
+                switch (opcionInventario) {
                     case 1:
-                        System.out.println("\n--- REGISTRAR NUEVO LIBRO ---");
-                        System.out.print("Ingrese el ID del libro: ");
-                        String idLibro = teclado.nextLine();
-                        
-                        System.out.print("Ingrese el título del libro: ");
-                        String titulo = teclado.nextLine();
-                        
-                        System.out.print("Ingrese el autor del libro: ");
-                        String autor = teclado.nextLine();
-                        
-                        String resultadoAgregar = processResult.addBook(idLibro,titulo, autor);
-                        System.out.println("\n👉 " + resultadoAgregar);
+                        System.out.println("\n--- REGISTRAR LIBRO ---");
+                        System.out.print("ID: "); String idB = teclado.nextLine();
+                        System.out.print("Título: "); String tituloB = teclado.nextLine();
+                        System.out.print("Autor: "); String autorB = teclado.nextLine();
+                        System.out.println("\n👉 " + processResult.addBook(idB, tituloB, autorB));
                         break;
-                        
+
                     case 2:
-                        System.out.println("\n--- BUSCAR LIBRO ---");
-                        System.out.print("Ingrese el ID o el Título a buscar: ");
-                        String criterio = teclado.nextLine();
-                        
-                        String resultadoBuscar = processResult.searchBook(criterio);
-                        System.out.println(resultadoBuscar);
+                        System.out.println("\n--- REGISTRAR REVISTA ---");
+                        System.out.print("ID: "); String idM = teclado.nextLine();
+                        System.out.print("Título: "); String tituloM = teclado.nextLine();
+                        System.out.print("Número de Edición: ");
+                        int edicionM = 0;
+                        try {
+                            edicionM = Integer.parseInt(teclado.nextLine());
+                            System.out.println("\n👉 " + processResult.addMagazine(idM, tituloM, edicionM));
+                        } catch (NumberFormatException e) {
+                            System.out.println("\n❌ Error: El número de edición debe ser un valor numérico.");
+                        }
                         break;
-                        
+
                     case 3:
+                        System.out.println("\n--- LISTADO DE LIBROS ---");
                         String listaLibros = processResult.getAllBooks();
                         System.out.println(listaLibros);
                         break;
-                        
                     case 4:
-                        System.out.println("\nRegresando al menú principal...");
+                        System.out.println("\n--- LISTADO DE REVISTAS ---");
+                        List<Magazine> revistas = processResult.getAllMagazines();
+                        if (revistas.isEmpty()) {
+                            System.out.println("No hay revistas registradas.");
+                        } else {
+                            for (Magazine m : revistas) {
+                                String estado = m.isAvailable() ? "Disponible" : "Prestado";
+                                System.out.println("[" + m.getId() + "] " + m.getTitle() + " - Edición: #" + m.getIssueNumber() + " (" + estado + ")");
+                            }
+                        }
                         break;
-                        
+
+                    case 5:
+                        System.out.println("Regresando al menú principal...");
+                        break;
+
                     default:
-                        System.out.println("\n❌ Opción no válida en este submódulo.");
+                        System.out.println("Opción no válida. Intente de nuevo.");
                 }
-            } catch (Exception e) {
-                System.out.println("\n❌ Error: Por favor, ingrese un número válido.");
-                teclado.nextLine(); // Limpiar búfer
-                subOpcion = 0;
-            }
-        } while (subOpcion != 4);
+            } while (opcionInventario != 5);
+        
+
     }
+    
     //Metodo auxiliar Case2
     private static void gestionarUsuarios(Scanner teclado, LibraryService processResult) {
         int subOpcion = 0;
