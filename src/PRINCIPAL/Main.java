@@ -36,6 +36,26 @@ public class Main {
                         break;
                     case 3:
                         System.out.println("\n[Módulo de Préstamos en construcción...]");
+                        System.out.println("\n=======================================");
+                        System.out.println("       MODULO DE REALIZAR PRÉSTAMO     ");
+                        System.out.println("=======================================");
+                        
+                        // 1. Pedir los datos al usuario
+                        System.out.print("Ingrese el carnet del usuario: ");
+                        String carnetPrestamo = teclado.nextLine();
+                        
+                        System.out.print("Ingrese el ID del material a prestar: ");
+                        String idMaterialPrestamo = teclado.nextLine();
+                        
+                        // 2. Llamar al método del servicio que procesa y valida el préstamo
+                        String resultadoPrestamo = processResult.borrowMaterial(carnetPrestamo, idMaterialPrestamo);
+                        
+                        // 3. Mostrar el reporte del estado del proceso
+                        System.out.println("\n👉 " + resultadoPrestamo); 
+                        
+                        
+                        
+                        
                         break;
                     case 4:
                         System.out.println("\n[Módulo de Devoluciones]");
