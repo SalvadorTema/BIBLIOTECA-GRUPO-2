@@ -268,6 +268,37 @@ public class LibraryService {
 
         return "\n=== INVENTARIO DE LIBROS TOTALES (" + contador + ") ===\n" + lista.toString();
     }
+    
+    /**
+     * Registra una nueva revista en el inventario y guarda en el archivo CSV.
+     */
+    public String addMagazine(String id, String title, int issueNumber) {
+        // Validación: Evitar IDs duplicados en el sistema
+        if (findMaterialById(id) != null) {
+            return "Error: Ya existe un material (Libro o Revista) con el ID " + id + ".";
+        }
+
+        // Crear la instancia de la revista y añadirla al inventario polimórfico
+        Magazine newMagazine = new Magazine(id, title, issueNumber);
+        inventory.add(newMagazine);
+        
+        // Persistir el cambio de inmediato en el disco
+        saveAllData();
+        
+        return "Éxito: Revista '" + title + "' (Edición #" + issueNumber + ") registrada correctamente.";}
+    
+    /**
+     * Retorna una lista exclusiva de las revistas en el inventario.
+     */
+    public List<Magazine> getAllMagazines() {
+        List<Magazine> magazinesOnly = new ArrayList<>();
+        for (AbstractMaterial mat : inventory) {
+            if (mat instanceof Magazine) {
+                magazinesOnly.add((Magazine) mat);
+            }
+        }
+        return magazinesOnly;
+    }
 //  MÉTODOS PARA EL CASO 2: USUARIOS
     /**
      * Registra un nuevo usuario en el sistema.
