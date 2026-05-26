@@ -30,4 +30,8 @@ public class User {
             activeLoans.add(material);
         }
     }
+    //Metodo para devolucion de material
+    public void removeLoan(AbstractMaterial material) {
+    	activeLoans.remove(material);
+    }
 }

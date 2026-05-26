@@ -13,6 +13,8 @@ import com.library.model.Book;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
+import java.awt.Color;
+
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
@@ -72,6 +74,9 @@ public class MainFrame extends JFrame {
     // 4. Botón para Guardar
     btnSave = new JButton("Guardar Libro");
     btnSave.setBounds(160, 260, 150, 40);
+    btnSave.setBackground(new Color(0, 123, 255));
+    btnSave.setForeground(Color.WHITE);
+    btnSave.setFocusPainted(false);
     add(btnSave);
     
     // 5. Acción del Botón Guardar en el CSV
