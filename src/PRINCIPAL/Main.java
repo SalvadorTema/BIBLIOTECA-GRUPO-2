@@ -114,13 +114,16 @@ public class Main {
                 switch (subOpcion) {
                     case 1:
                         System.out.println("\n--- REGISTRAR NUEVO LIBRO ---");
+                        System.out.print("Ingrese el ID del libro: ");
+                        String idLibro = teclado.nextLine();
+                        
                         System.out.print("Ingrese el título del libro: ");
                         String titulo = teclado.nextLine();
                         
                         System.out.print("Ingrese el autor del libro: ");
                         String autor = teclado.nextLine();
                         
-                        String resultadoAgregar = processResult.addBook(titulo, autor);
+                        String resultadoAgregar = processResult.addBook(idLibro,titulo, autor);
                         System.out.println("\n👉 " + resultadoAgregar);
                         break;
                         
