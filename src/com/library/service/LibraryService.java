@@ -165,6 +165,7 @@ public class LibraryService {
     public String returnMaterial(String carnet, String id) {
         User user = findUserByCarnet(carnet);
         AbstractMaterial material = findMaterialById(id);
+        
 
         // Validación de existencia
         if (user == null) {
@@ -172,6 +173,7 @@ public class LibraryService {
         }
         if (material == null) {
             return "Error: El material con ID " + id + " no existe.";
+            
         }
 
         // Verificar si el usuario realmente tiene prestado ese material

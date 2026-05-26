@@ -58,23 +58,22 @@ public class Main {
                         
                         break;
                     case 4:
-                        System.out.println("\n[Módulo de Devoluciones]");
-                        System.out.println("\n=======================================");
-                        System.out.println("       MODULO DE DEVOLUCIONES          ");
+                    	System.out.println("\n=======================================");
+                        System.out.println("      MÓDULO DE GESTIONAR DEVOLUCIÓN   ");
                         System.out.println("=======================================");
                         
-                        // 1. Pedir los datos al usuario
+                        // 1. Solicitar los datos de la devolución
                         System.out.print("Ingrese el carnet del usuario: ");
-                        String carnet = teclado.nextLine();
+                        String carnetDevolucion = teclado.nextLine();
                         
                         System.out.print("Ingrese el ID del material a devolver: ");
-                        String idMaterial = teclado.nextLine();
+                        String idMaterialDevolucion = teclado.nextLine();
                         
-                        // 2. Llamar al método que procesa la devolución
-                        String resultado =processResult.returnMaterial(carnet, idMaterial);
+                        // 2. Invocar al servicio para procesar la devolución y persistir los datos
+                        String resultadoDevolucion = processResult.returnMaterial(carnetDevolucion, idMaterialDevolucion);
                         
-                        // 3. Mostrar el mensaje en español que retorna el método
-                        System.out.println("\n👉 " + resultado);
+                        // 3. Imprimir el resultado de la operación
+                        System.out.println("\n👉 " + resultadoDevolucion);
                         break;
                     case 5:
                         System.out.println("\n¡Gracias por usar el sistema! Saliendo...");
