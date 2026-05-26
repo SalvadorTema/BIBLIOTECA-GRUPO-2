@@ -140,18 +140,16 @@ public class LibraryService {
         return "Éxito: '" + material.getTitle() + "' ha sido devuelto exitosamente por " + user.getName() + ".";
     }
     
-    //Nuevos metodos +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //Nuevos metodos 
 //  MÉTODOS PARA EL CASO 1: LIBROS
-    public String addBook(String title, String author) {
+    public String addBook(String id, String title, String author ) {
         if (title == null || title.trim().isEmpty()) {
             return "Error: El título del libro no puede estar vacío.";
         }
-        
-        // Generar un ID automático incremental
-        String nuevoId = "LIB-" + (inventory.size() + 1);
-        
+       
+      
         // Crear la instancia de la clase hija Book
-        Book nuevoLibro = new Book(nuevoId, title, author);
+        Book nuevoLibro = new Book(id, title, author);
         
         // Utiliza tu método existente para agregarlo a la lista
         addMaterial(nuevoLibro);
@@ -159,7 +157,7 @@ public class LibraryService {
         // Guardar automáticamente en el archivo persistente
         saveAllData();
         
-        return "Libro '" + title + "' registrado con éxito. ID asignado: " + nuevoId;
+        return "Libro '" + title + "' registrado con éxito. ID asignado: " + id;
     }
     /**
      * Busca un libro por su ID o por coincidencias en el título.
