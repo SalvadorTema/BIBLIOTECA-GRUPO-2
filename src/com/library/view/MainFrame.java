@@ -112,6 +112,13 @@ public class MainFrame extends JFrame {
     table = new JTable(tableModel);
     table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     
+ // Colores para el encabezado de la tabla (Azul Profesional con letras blancas)
+    table.getTableHeader().setBackground(new java.awt.Color(0, 102, 204));
+    table.getTableHeader().setForeground(java.awt.Color.WHITE);
+    table.getTableHeader().setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 12));
+    
+    // Color gris claro para las líneas divisorias de las celdas
+    table.setGridColor(new java.awt.Color(220, 225, 230));
     // 3. sele coloca a la tabla en un panel con barras de desplazamiento Scroll
     JScrollPane scrollPane = new JScrollPane(table);
     // Posición a la derecha: X=450, Y=100, Ancho=300, Alto=400
@@ -143,13 +150,13 @@ public class MainFrame extends JFrame {
             // Revisa el ancho del título de la columna
             javax.swing.table.TableCellRenderer headerRenderer = tabla.getTableHeader().getDefaultRenderer();
             java.awt.Component compHeader = headerRenderer.getTableCellRendererComponent(tabla, tableColumn.getHeaderValue(), false, false, 0, columna);
-            anchoMaximo = Math.max(compHeader.getPreferredSize().width + 15, anchoMaximo);
+            anchoMaximo = Math.max(compHeader.getPreferredSize().width + 40, anchoMaximo);
 
             // Revisa el ancho de cada celda con datos
             for (int fila = 0; fila < tabla.getRowCount(); fila++) {
                 javax.swing.table.TableCellRenderer cellRenderer = tabla.getCellRenderer(fila, columna);
                 java.awt.Component comp = tabla.prepareRenderer(cellRenderer, fila, columna);
-                anchoMaximo = Math.max(comp.getPreferredSize().width + 15, anchoMaximo);
+                anchoMaximo = Math.max(comp.getPreferredSize().width + 40, anchoMaximo);
             }
             
             // Aplica el ancho calculado a la columna
