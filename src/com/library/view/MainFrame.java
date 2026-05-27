@@ -110,6 +110,7 @@ public class MainFrame extends JFrame {
     // 2. Creamos  el modelo de datos empezando con 0 filas
     tableModel = new DefaultTableModel(columnNames, 0);
     table = new JTable(tableModel);
+    table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     
     // 3. sele coloca a la tabla en un panel con barras de desplazamiento Scroll
     JScrollPane scrollPane = new JScrollPane(table);
