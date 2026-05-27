@@ -127,6 +127,8 @@ public class MainFrame extends JFrame {
         } else if (mat instanceof com.library.model.Magazine) {
             autor = "Revista";
         }
+     // Ajusta el tamaño automático después de llenar la tabla con el CSV
+        ajustarColumnasAutomatico(table);
         
         // Agregamos la fila usando los métodos de la clase abstracta
         tableModel.addRow(new Object[]{mat.getId(), mat.getTitle(), autor});
