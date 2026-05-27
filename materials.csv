@@ -1,7 +1,10 @@
-Type;ID;Title;ExtraField;Available
-B;L001;Cien anos de soledad;Gabriel Garcia Marquez;true
-B;101;El Quijote;Cervantes;true
-B;102;El Arbol;Alexander tema;true
-B;104;Hombres de maiz;Roberto Ruiz;true
-B;LIB-5;L105;El Alquimista;true
-B;1010;La cabaña;Carlos Gutierrez;true
+Type;ID;Title;ExtraField;BorrowedByCarnet
+B;L001;Cien anos de soledad;Gabriel Garcia Marquez;NONE
+B;101;El Quijote;Cervantes;NONE
+B;102;El Arbol;Alexander tema;NONE
+B;104;Hombres de maiz;Roberto Ruiz;NONE
+B;LIB-5;L105;El Alquimista;NONE
+B;1010;La cabaña;Carlos Gutierrez;NONE
+B;1020;La cocina ;Margarita Esteban;NONE
+B;0905;La historia del futbol;Carlos Ruiz;NONE
+M;0903;El sol;90101;NONE

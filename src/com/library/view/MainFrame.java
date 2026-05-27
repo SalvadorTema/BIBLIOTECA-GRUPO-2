@@ -132,4 +132,25 @@ public class MainFrame extends JFrame {
         tableModel.addRow(new Object[]{mat.getId(), mat.getTitle(), autor});
     }
      }
+    public void ajustarColumnasAutomatico(javax.swing.JTable tabla) {
+        for (int columna = 0; columna < tabla.getColumnCount(); columna++) {
+            javax.swing.table.TableColumn tableColumn = tabla.getColumnModel().getColumn(columna);
+            int anchoMaximo = 50; // Tamaño mínimo por defecto para que no quede invisible
+
+            // Revisa el ancho del título de la columna
+            javax.swing.table.TableCellRenderer headerRenderer = tabla.getTableHeader().getDefaultRenderer();
+            java.awt.Component compHeader = headerRenderer.getTableCellRendererComponent(tabla, tableColumn.getHeaderValue(), false, false, 0, columna);
+            anchoMaximo = Math.max(compHeader.getPreferredSize().width + 15, anchoMaximo);
+
+            // Revisa el ancho de cada celda con datos
+            for (int fila = 0; fila < tabla.getRowCount(); fila++) {
+                javax.swing.table.TableCellRenderer cellRenderer = tabla.getCellRenderer(fila, columna);
+                java.awt.Component comp = tabla.prepareRenderer(cellRenderer, fila, columna);
+                anchoMaximo = Math.max(comp.getPreferredSize().width + 15, anchoMaximo);
+            }
+            
+            // Aplica el ancho calculado a la columna
+            tableColumn.setPreferredWidth(anchoMaximo);
+        }
+    }
 }
