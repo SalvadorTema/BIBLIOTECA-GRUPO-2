@@ -159,8 +159,10 @@ public class LibraryService {
     
     public void saveAllData() {
     	// Le pasamos ambos inventarios para que cruce la información de los préstamos
-        com.library.model.FilePersistence.saveMaterials(this.inventory, this.users);
-        com.library.model.FilePersistence.saveUsers(this.users);
+   
+    com.library.model.FilePersistence.saveMaterials(this.inventory, this.users);
+    com.library.model.FilePersistence.saveUsers(this.users);
+        
     }
     public String returnMaterial(String carnet, String id) {
         User user = findUserByCarnet(carnet);
