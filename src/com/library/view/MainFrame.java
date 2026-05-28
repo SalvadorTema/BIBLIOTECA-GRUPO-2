@@ -79,6 +79,20 @@ public class MainFrame extends JFrame {
     btnSave.setFocusPainted(false);
     add(btnSave);
     
+ // Botón para Salir
+    JButton btnExit = new JButton("Salir");
+    btnExit.setBounds(160, 315, 150, 40); 
+    btnExit.setBackground(new Color(220, 53, 69)); // Rojo elegante
+    btnExit.setForeground(Color.WHITE);
+    btnExit.setFocusPainted(false);
+    btnExit.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.exit(0); // Cierra la aplicación limpiamente
+        }
+    });
+    add(btnExit);
+    
     // 5. Acción del Botón Guardar en el CSV
     
     btnSave.addActionListener(new ActionListener() {
