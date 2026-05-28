@@ -79,6 +79,8 @@ public class MainFrame extends JFrame {
     btnSave.setFocusPainted(false);
     add(btnSave);
     
+    this.getContentPane().setBackground(new Color(245, 247, 250)); // Un blanco grisáceo moderno
+    
  // Botón para Salir
     JButton btnExit = new JButton("Salir");
     btnExit.setBounds(160, 315, 150, 40); 
@@ -89,6 +91,7 @@ public class MainFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.exit(0); // Cierra la aplicación limpiamente
+            
         }
     });
     add(btnExit);
@@ -113,7 +116,9 @@ public class MainFrame extends JFrame {
             txtId.setText("");
             txtTitle.setText("");
             txtAuthor.setText("");
+            
         }
+        
     });
     
  // CONFIGURACIÓN DE LA TABLA LADO DERECHO
