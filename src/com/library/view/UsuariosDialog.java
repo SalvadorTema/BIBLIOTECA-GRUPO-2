@@ -26,7 +26,7 @@ public class UsuariosDialog extends JDialog {
         super(parent, "Gestión de Usuarios", true);
 
        
-        setSize(750, 350);
+        setSize(850, 420);
         setLocationRelativeTo(parent);
         setLayout(null);
 
@@ -92,5 +92,22 @@ public class UsuariosDialog extends JDialog {
                 }
             }
         });
+     // Botón Salir para la ventana de Usuarios
+        JButton btnSalirUsuarios = new JButton("Salir");
+     // Cambia los números del setBounds para ponerlo a la derecha del botón verde
+        btnSalirUsuarios.setBounds(130, 260, 160, 40);// Ajusta la posición si se encima con otro componente
+        btnSalirUsuarios.setBackground(new Color(220, 53, 69)); // Rojo elegante
+        btnSalirUsuarios.setForeground(Color.WHITE);
+        btnSalirUsuarios.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 12));
+        btnSalirUsuarios.setFocusPainted(false);
+
+        btnSalirUsuarios.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0); // Cierra todo el sistema limpiamente
+            }
+        });
+
+        add(btnSalirUsuarios);
     }
 }
