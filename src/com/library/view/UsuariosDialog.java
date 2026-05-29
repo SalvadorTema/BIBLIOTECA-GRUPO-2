@@ -94,7 +94,8 @@ public class UsuariosDialog extends JDialog {
         });
      // Botón Salir para la ventana de Usuarios
         JButton btnSalirUsuarios = new JButton("Salir");
-     // Cambia los números del setBounds para ponerlo a la derecha del botón verde
+        
+     // Cambia los números del setBounds para ponerlo a abajo a del botón verde
         btnSalirUsuarios.setBounds(130, 260, 160, 40);// Ajusta la posición si se encima con otro componente
         btnSalirUsuarios.setBackground(new Color(220, 53, 69)); // Rojo elegante
         btnSalirUsuarios.setForeground(Color.WHITE);
