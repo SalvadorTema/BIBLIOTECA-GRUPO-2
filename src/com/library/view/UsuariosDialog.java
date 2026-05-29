@@ -105,7 +105,7 @@ public class UsuariosDialog extends JDialog {
         btnSalirUsuarios.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0); // Cierra todo el sistema limpiamente
+                dispose(); 
             }
         });
 

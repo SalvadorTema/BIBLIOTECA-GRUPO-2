@@ -129,5 +129,22 @@ public class OperacionesDialog extends JDialog {
                 JOptionPane.showMessageDialog(OperacionesDialog.this, scrollPane, "Reporte Polimórfico - Reglas de Negocio", JOptionPane.PLAIN_MESSAGE);
             }
         });
+        
+     // Botón Salir para la ventana de Préstamos
+        JButton btnSalirPrestamos = new JButton("Salir");
+        btnSalirPrestamos.setBounds(120, 310, 180, 40); 
+        btnSalirPrestamos.setBackground(new Color(220, 53, 69)); 
+        btnSalirPrestamos.setForeground(Color.WHITE);
+        btnSalirPrestamos.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 12));
+        btnSalirPrestamos.setFocusPainted(false);
+
+        btnSalirPrestamos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); 
+            }
+        });
+
+        add(btnSalirPrestamos);
     }
 }

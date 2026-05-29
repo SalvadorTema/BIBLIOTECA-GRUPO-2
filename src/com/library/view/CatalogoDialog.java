@@ -75,7 +75,9 @@ public class CatalogoDialog extends JDialog {
                 txtId.setText(""); txtTitle.setText(""); txtAuthor.setText("");
             }
         });
+        
      // Botón Salir para la ventana de Catálogo
+        
         JButton btnSalirCatalogo = new JButton("Salir");
         btnSalirCatalogo.setBounds(160, 330, 140, 40); 
         btnSalirCatalogo.setBackground(new Color(220, 53, 69)); 
@@ -86,7 +88,7 @@ public class CatalogoDialog extends JDialog {
         btnSalirCatalogo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0); 
+                dispose(); 
             }
         });
 
