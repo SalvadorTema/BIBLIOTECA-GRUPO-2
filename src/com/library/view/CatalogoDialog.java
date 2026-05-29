@@ -75,5 +75,21 @@ public class CatalogoDialog extends JDialog {
                 txtId.setText(""); txtTitle.setText(""); txtAuthor.setText("");
             }
         });
+     // Botón Salir para la ventana de Catálogo
+        JButton btnSalirCatalogo = new JButton("Salir");
+        btnSalirCatalogo.setBounds(160, 330, 140, 40); 
+        btnSalirCatalogo.setBackground(new Color(220, 53, 69)); 
+        btnSalirCatalogo.setForeground(Color.WHITE);
+        btnSalirCatalogo.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 12));
+        btnSalirCatalogo.setFocusPainted(false);
+
+        btnSalirCatalogo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0); 
+            }
+        });
+
+        add(btnSalirCatalogo);
     }
 }
