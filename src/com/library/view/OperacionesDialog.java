@@ -80,6 +80,7 @@ public class OperacionesDialog extends JDialog {
                     JOptionPane.showMessageDialog(OperacionesDialog.this, res, "Error de Préstamo", JOptionPane.ERROR_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(OperacionesDialog.this, res, "Préstamo Exitoso", JOptionPane.INFORMATION_MESSAGE);
+                    service.saveAllData();
                     txtCarnet.setText("");
                     txtIdMaterial.setText("");
                 }
